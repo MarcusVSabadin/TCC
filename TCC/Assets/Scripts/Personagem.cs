@@ -9,6 +9,7 @@ public class Personagem : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animacao;
+    Transform transform;
 
     //status
     float vida_, dano_, velocidade_;
@@ -32,10 +33,11 @@ public class Personagem : MonoBehaviour
         get {return velocidade_;}
     }
 
-    void Start()
+    public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animacao = GetComponent<Animator>();
+        transform = GetComponent<Transform>();
     }
 
     public void TomarDano(float danoRecebido)
@@ -45,12 +47,13 @@ public class Personagem : MonoBehaviour
 
     public void Virar()
     {
-
+        transform.localScale = new Vector2(transform.localScale.x*-1,transform.localScale.y);
+        direcaoPersD = !direcaoPersD;     
     }
 
-    public virtual void Mover()
+    public virtual void Mover(Vector2 direcao)
     {
-
+        rb.velocity = new Vector2(direcao.x*velocidade,rb.velocity.y) ;
     }
 
     public virtual void Ataque()

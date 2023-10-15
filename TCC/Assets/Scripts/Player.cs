@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class Player : Personagem
 {
-
-    Vector2 inputs_;
-    
-    public Vector2 inputs
+    bool utiDirD = true;
+    public override void Start()
     {
-        set {inputs_ = value;}
-        get {return inputs_;}
-    }
+        base.Start();
+        velocidade = 5;
 
+    }
+    
     void Update()
     {
-        inputs = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Mover(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+
+        if(Input.GetKeyDown(KeyCode.A) && utiDirD)
+        {
+            Virar();
+            utiDirD = !utiDirD;
+        }
+        else if(Input.GetKeyDown(KeyCode.D) && !utiDirD)
+        {
+            Virar();
+            utiDirD = !utiDirD;
+        }
     }
 }
