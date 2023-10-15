@@ -14,14 +14,19 @@ public class Player : Personagem
     
     void Update()
     {
+        Movimentacao(); 
+    }
+
+    void Movimentacao()
+    {
         Mover(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
 
-        if(Input.GetKeyDown(KeyCode.A) && utiDirD)
+        if(Input.GetKeyDown(KeyCode.LeftArrow) && utiDirD)
         {
             Virar();
             utiDirD = !utiDirD;
         }
-        else if(Input.GetKeyDown(KeyCode.D) && !utiDirD)
+        else if(Input.GetKeyDown(KeyCode.RightArrow) && !utiDirD)
         {
             Virar();
             utiDirD = !utiDirD;
