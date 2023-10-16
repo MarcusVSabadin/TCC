@@ -9,7 +9,7 @@ public class Player : Personagem
     {
         base.Start();
         velocidade = 5;
-
+        forcaDoPulo = 5;
     }
     
     void Update()
@@ -30,6 +30,11 @@ public class Player : Personagem
         {
             Virar();
             utiDirD = !utiDirD;
+        }
+
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            Pular();
         }
     }
 }

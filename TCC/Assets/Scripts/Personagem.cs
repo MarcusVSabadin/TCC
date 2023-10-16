@@ -12,7 +12,7 @@ public class Personagem : MonoBehaviour
     Transform transform;
 
     //status
-    float vida_, dano_, velocidade_;
+    [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_;
     bool direcaoPersD = true;
 
     public float vida
@@ -33,6 +33,12 @@ public class Personagem : MonoBehaviour
         get {return velocidade_;}
     }
 
+    public float forcaDoPulo
+    {
+        set {forcaDoPulo_ = value;}
+        get {return forcaDoPulo_;}
+    }
+
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,9 +57,14 @@ public class Personagem : MonoBehaviour
         direcaoPersD = !direcaoPersD;     
     }
 
-    public virtual void Mover(Vector2 direcao)
+    public void Mover(Vector2 direcao)
     {
         rb.velocity = new Vector2(direcao.x*velocidade,rb.velocity.y) ;
+    }
+
+    public void Pular()
+    {
+        rb.velocity = new Vector2(rb.velocity.x,forcaDoPulo);
     }
 
     public virtual void Ataque()
