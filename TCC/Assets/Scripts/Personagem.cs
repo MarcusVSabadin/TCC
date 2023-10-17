@@ -16,8 +16,9 @@ public class Personagem : MonoBehaviour
     bool podePular,direcaoPersD = true;
 
     //pulo
-    Transform ObjDetectaChao;
-    Collider[] colisorChao;
+    [SerializeField] Transform ObjDetectaChao;
+    [SerializeField] LayerMask Chao;
+    bool colisorChao;
 
     public float vida
     {
@@ -53,14 +54,7 @@ public class Personagem : MonoBehaviour
     public virtual void Update()
     {
         
-        colisorChao[] = Physics.OverlapSphere(ObjDetectaChao.position, 2);
-        foreach (GameObject go in colisorChao)
-        {
-            if(GameObject.tag = "Chao")
-                podePular = true;
-            else
-                podePular = false;
-        }
+        colisorChao = Physics2D.OverlapCircle(ObjDetectaChao.position, 0.05f,Chao); 
         
     }
 
@@ -82,7 +76,7 @@ public class Personagem : MonoBehaviour
 
     public void Pular()
     {
-        if(podePular)
+        if(colisorChao)
             rb.velocity = new Vector2(rb.velocity.x,forcaDoPulo);
     }
 
