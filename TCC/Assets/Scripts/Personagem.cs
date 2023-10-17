@@ -13,7 +13,11 @@ public class Personagem : MonoBehaviour
 
     //status
     [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_;
-    bool direcaoPersD = true;
+    bool podePular,direcaoPersD = true;
+
+    //pulo
+    Transform ObjDetectaChao;
+    Collider[] colisorChao;
 
     public float vida
     {
@@ -46,6 +50,20 @@ public class Personagem : MonoBehaviour
         transform = GetComponent<Transform>();
     }
 
+    public virtual void Update()
+    {
+        
+        colisorChao[] = Physics.OverlapSphere(ObjDetectaChao.position, 2);
+        foreach (GameObject go in colisorChao)
+        {
+            if(GameObject.tag = "Chao")
+                podePular = true;
+            else
+                podePular = false;
+        }
+        
+    }
+
     public void TomarDano(float danoRecebido)
     {
         vida_=vida_-danoRecebido;
@@ -64,7 +82,8 @@ public class Personagem : MonoBehaviour
 
     public void Pular()
     {
-        rb.velocity = new Vector2(rb.velocity.x,forcaDoPulo);
+        if(podePular)
+            rb.velocity = new Vector2(rb.velocity.x,forcaDoPulo);
     }
 
     public virtual void Ataque()

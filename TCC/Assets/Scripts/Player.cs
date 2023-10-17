@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Personagem
 {
     bool utiDirD = true;
+    
+
     public override void Start()
     {
         base.Start();
@@ -12,8 +14,9 @@ public class Player : Personagem
         forcaDoPulo = 5;
     }
     
-    void Update()
+    public override void Update()
     {
+        base.Update();
         Movimentacao(); 
     }
 
