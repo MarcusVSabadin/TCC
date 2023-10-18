@@ -10,9 +10,8 @@ public class Personagem : MonoBehaviour
     Rigidbody2D rb;
     Animator animacao;
     Transform transform;
+    Status status_;
 
-    //status
-    [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_;
     bool podePular,direcaoPersD = true;
 
     //pulo
@@ -20,35 +19,12 @@ public class Personagem : MonoBehaviour
     [SerializeField] LayerMask Chao;
     bool colisorChao;
 
-    public float vida
-    {
-        set {vida_ = value;}
-        get {return vida_;}
-    }
-
-    public float dano
-    {
-        set {dano_ = value;}
-        get {return dano_;}
-    }
-
-    public float velocidade
-    {
-        set {velocidade_ = value;}
-        get {return velocidade_;}
-    }
-
-    public float forcaDoPulo
-    {
-        set {forcaDoPulo_ = value;}
-        get {return forcaDoPulo_;}
-    }
-
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animacao = GetComponent<Animator>();
         transform = GetComponent<Transform>();
+        status_ = GetComponent<Status>();
     }
 
     public virtual void Update()
@@ -58,9 +34,15 @@ public class Personagem : MonoBehaviour
         
     }
 
+    public Status status
+    {
+        get{return status_;}
+
+    }
+
     public void TomarDano(float danoRecebido)
     {
-        vida_=vida_-danoRecebido;
+        
     }
 
     public void Virar()
@@ -71,13 +53,13 @@ public class Personagem : MonoBehaviour
 
     public void Mover(Vector2 direcao)
     {
-        rb.velocity = new Vector2(direcao.x*velocidade,rb.velocity.y) ;
+        rb.velocity = new Vector2(direcao.x*status.velocidade,rb.velocity.y) ;
     }
 
     public void Pular()
     {
         if(colisorChao)
-            rb.velocity = new Vector2(rb.velocity.x,forcaDoPulo);
+            rb.velocity = new Vector2(rb.velocity.x,status.forcaDoPulo);
     }
 
     public virtual void Ataque()

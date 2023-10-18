@@ -10,8 +10,8 @@ public class Player : Personagem
     public override void Start()
     {
         base.Start();
-        velocidade = 5;
-        forcaDoPulo = 5;
+        status.velocidade = 5;
+        status.forcaDoPulo = 5;
     }
     
     public override void Update()
