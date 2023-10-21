@@ -10,7 +10,7 @@ public class Player : Personagem
     float timeMaster;
     float timeAtk;
 
-    //atck
+    //atk
     [SerializeField] Transform PosAtk;
     [SerializeField] float alcanceAtk, IntervaloAtk;
     [SerializeField] LayerMask LayerInimigos;
@@ -61,6 +61,7 @@ public class Player : Personagem
                     break;
                 }
             }
+
         }
     }
 
