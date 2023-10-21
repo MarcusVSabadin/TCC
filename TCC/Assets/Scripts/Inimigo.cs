@@ -13,10 +13,8 @@ public class Inimigo : Personagem
         player = GameObject.FindWithTag("Player");
     } 
 
-    public override void Update()
+    void FixedUpdate()
     {
-        base.Update();
-
         if(player.transform.position.x < transform.position.x)
             Mover(new Vector2 (-1.0f,0.0f));
         else
