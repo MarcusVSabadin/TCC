@@ -6,14 +6,6 @@ public class Player : Personagem
 {
     bool utiDirD = true;
     
-
-    public override void Start()
-    {
-        base.Start();
-        status.velocidade = 5;
-        status.forcaDoPulo = 5;
-    }
-    
     public override void Update()
     {
         base.Update();

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Personagem : MonoBehaviour
 {
-    Rigidbody2D rb;
+    Rigidbody2D rb_;
     Animator animacao;
     Transform transform;
     Status status_;
@@ -19,9 +19,20 @@ public class Personagem : MonoBehaviour
     [SerializeField] LayerMask Chao;
     bool colisorChao;
 
+    public Rigidbody2D rb
+    {
+        get{return rb_;}
+    }
+
+    public Status status
+    {
+        get{return status_;}
+
+    }
+
     public virtual void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb_ = GetComponent<Rigidbody2D>();
         animacao = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         status_ = GetComponent<Status>();
@@ -34,11 +45,7 @@ public class Personagem : MonoBehaviour
         
     }
 
-    public Status status
-    {
-        get{return status_;}
-
-    }
+    
 
     public void TomarDano(float danoRecebido)
     {
@@ -53,13 +60,13 @@ public class Personagem : MonoBehaviour
 
     public void Mover(Vector2 direcao)
     {
-        rb.velocity = new Vector2(direcao.x*status.velocidade,rb.velocity.y) ;
+        rb_.velocity = new Vector2(direcao.x*status.velocidade,rb_.velocity.y) ;
     }
 
     public void Pular()
     {
         if(colisorChao)
-            rb.velocity = new Vector2(rb.velocity.x,status.forcaDoPulo);
+            rb_.velocity = new Vector2(rb_.velocity.x,status.forcaDoPulo);
     }
 
     public virtual void Ataque()
