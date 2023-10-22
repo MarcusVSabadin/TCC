@@ -771,8 +771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6304eb46e4d39c4cb2ad05a633937a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida_: 0
-  dano_: 0
+  vida_: 5
+  dano_: 1
   velocidade_: 5
   forcaDoPulo_: 5
 --- !u!1 &1022965212
@@ -1450,7 +1450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6304eb46e4d39c4cb2ad05a633937a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida_: 0
+  vida_: 3
   dano_: 0
   velocidade_: 0
   forcaDoPulo_: 4

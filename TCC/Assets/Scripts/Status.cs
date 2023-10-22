@@ -31,15 +31,17 @@ public class Status : MonoBehaviour
         set {forcaDoPulo_ = value;}
         get {return forcaDoPulo_;}
     }
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(vida <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    public void TomarDano(float danoRecebido)
+    {
+        vida = vida - danoRecebido;
     }
 }

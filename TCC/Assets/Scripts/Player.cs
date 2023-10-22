@@ -57,6 +57,7 @@ public class Player : Personagem
             {
                 if(inimigo.gameObject.tag == "Inimigo")
                 {
+                    inimigo.gameObject.GetComponent<Status>().TomarDano(status.dano);
                     Debug.Log("hit");
                     break;
                 }
