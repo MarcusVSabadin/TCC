@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida_: 3
   dano_: 0
-  velocidade_: 0
+  velocidade_: 2
   forcaDoPulo_: 4
 --- !u!95 &2071457507
 Animator:

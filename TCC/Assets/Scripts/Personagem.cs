@@ -8,7 +8,7 @@ using UnityEngine;
 public class Personagem : MonoBehaviour
 {
     Rigidbody2D rb_;
-    Animator animacao;
+    Animator animacao_;
     Transform transform;
     Status status_;
 
@@ -24,6 +24,11 @@ public class Personagem : MonoBehaviour
         get{return rb_;}
     }
 
+    public Animator animacao
+    {
+        get{return animacao_;}
+    }
+
     public Status status
     {
         get{return status_;}
@@ -33,7 +38,7 @@ public class Personagem : MonoBehaviour
     public virtual void Start()
     {
         rb_ = GetComponent<Rigidbody2D>();
-        animacao = GetComponent<Animator>();
+        animacao_ = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         status_ = GetComponent<Status>();
     }

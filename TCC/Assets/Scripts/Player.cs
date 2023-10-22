@@ -29,6 +29,7 @@ public class Player : Personagem
     void Movimentacao()
     {
         Mover(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+        animacao.SetFloat("velocidade",Mathf.Abs(rb.velocity.x));
 
         if(Input.GetKeyDown(KeyCode.LeftArrow) && utiDirD)
         {
@@ -52,6 +53,7 @@ public class Player : Personagem
         if(timeMaster >= timeAtk)
         {
             timeAtk = timeMaster + IntervaloAtk;
+            animacao.SetTrigger("atk");
             Collider2D[] Inimigos = Physics2D.OverlapCircleAll(PosAtk.position, alcanceAtk, LayerInimigos);
             foreach(Collider2D inimigo in Inimigos)
             {
