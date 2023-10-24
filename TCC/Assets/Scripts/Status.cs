@@ -6,7 +6,9 @@ public class Status : MonoBehaviour
 {
     
     //status
-    [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_;
+    float time,auxTimeIn, auxVelocidade;
+    [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_,tempoInvu;
+    bool boolDanoR;
 
     public float vida
     {
@@ -32,16 +34,30 @@ public class Status : MonoBehaviour
         get {return forcaDoPulo_;}
     }
 
+    void Start()
+    {
+        auxVelocidade = velocidade;
+    }
+
     void Update()
     {
+        time = Time.time;
         if(vida <= 0)
         {
             Destroy(gameObject);
+        }
+        if(time>=auxTimeIn && boolDanoR)
+        {
+            velocidade = auxVelocidade;
+            boolDanoR = false;
         }
     }
     
     public void TomarDano(float danoRecebido)
     {
         vida = vida - danoRecebido;
+        velocidade = 0;
+        auxTimeIn = time + tempoInvu;
+        boolDanoR = true;
     }
 }

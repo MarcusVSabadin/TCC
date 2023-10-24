@@ -13,6 +13,7 @@ public class Personagem : MonoBehaviour
     Status status_;
 
     bool podePular,direcaoPersD = true;
+    float timeMaster_;
 
     //pulo
     [SerializeField] Transform ObjDetectaChao;
@@ -35,6 +36,11 @@ public class Personagem : MonoBehaviour
 
     }
 
+    public float timeMaster
+    {
+        get{return timeMaster_;}
+    }
+
     public virtual void Start()
     {
         rb_ = GetComponent<Rigidbody2D>();
@@ -45,7 +51,7 @@ public class Personagem : MonoBehaviour
 
     public virtual void Update()
     {
-        
+        timeMaster_ = Time.time;
         colisorChao = Physics2D.OverlapCircle(ObjDetectaChao.position, 0.05f,Chao); 
         
     }

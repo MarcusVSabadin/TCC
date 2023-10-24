@@ -7,7 +7,6 @@ public class Player : Personagem
     bool utiDirD = true;
 
     //time
-    float timeMaster;
     float timeAtk;
 
     //atk
@@ -18,8 +17,8 @@ public class Player : Personagem
     public override void Update()
     {
         base.Update();
-        timeMaster = Time.time;
-        Movimentacao(); 
+        if(status.velocidade != 0)
+            Movimentacao(); 
 
         //ataque
         if(Input.GetKeyDown(KeyCode.Z))

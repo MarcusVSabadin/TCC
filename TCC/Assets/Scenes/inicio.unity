@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 862993338}
   - component: {fileID: 862993344}
   - component: {fileID: 862993343}
+  - component: {fileID: 862993345}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -775,6 +776,33 @@ MonoBehaviour:
   dano_: 1
   velocidade_: 5
   forcaDoPulo_: 5
+  tempoInvu: 1
+--- !u!61 &862993345
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862993337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0048736334, y: 0.001574114}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.617187, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.20445466, y: 0.7780303}
+  m_EdgeRadius: 0
 --- !u!1 &1022965212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,9 +1479,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida_: 3
-  dano_: 0
+  dano_: 1
   velocidade_: 2
   forcaDoPulo_: 4
+  tempoInvu: 1
 --- !u!95 &2071457507
 Animator:
   serializedVersion: 5
@@ -1599,7 +1628,7 @@ Transform:
   m_GameObject: {fileID: 2071457504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.78, y: -0.39484656, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 116093658}
@@ -1622,3 +1651,4 @@ MonoBehaviour:
   Chao:
     serializedVersion: 2
     m_Bits: 8
+  tempoParadoPosDano: 1

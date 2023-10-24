@@ -4,25 +4,58 @@ using UnityEngine;
 
 public class Inimigo : Personagem
 {
+    float timeAposDano, auxVelocidade;
     GameObject player;
-    float ultimaVelocidade;
+    float ultimaVelocidade,direcao;
+
+    [SerializeField] float tempoParadoPosDano;
     
     public override void Start()
     {
         base.Start();
         player = GameObject.FindWithTag("Player");
+        auxVelocidade = this.status.velocidade;
+        direcao = 1.0f;
     } 
 
     void FixedUpdate()
     {
-        if(player.transform.position.x < transform.position.x)
-            Mover(new Vector2 (-1.0f,0.0f));
-        else
-            Mover(new Vector2 (1.0f,0.0f));
+        Movimentacao();
 
-        if(ultimaVelocidade != rb.velocity.x && ultimaVelocidade != 0.0f)
+        if(timeMaster>=timeAposDano)
+        {
+            status.velocidade = auxVelocidade;
+        }
+    }
+
+    void Movimentacao()
+    {
+        if(player.transform.position.x < transform.position.x)
+        {
+            direcao = -1.0f;
+            Mover(new Vector2 (direcao,0.0f));
+        }
+        else
+        {
+            direcao = 1.0f;
+            Mover(new Vector2 (direcao,0.0f));
+        }
+
+        if(ultimaVelocidade != direcao && (rb.velocity.x >= 0.3f || rb.velocity.x <= -0.3f))
             Virar();
 
-        ultimaVelocidade = rb.velocity.x;
+        ultimaVelocidade = direcao;
+    }
+
+    void OnTriggerEnter2D(Collider2D Collider)
+    {
+        if(Collider.gameObject.tag == "Player")
+        {
+            player.GetComponent<Status>().TomarDano(status.dano);
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2 (direcao*3,player.GetComponent<Rigidbody2D>().velocity.y);
+            timeAposDano = timeMaster + tempoParadoPosDano;
+            this.status.velocidade = 0;
+
+        }
     }
 }
