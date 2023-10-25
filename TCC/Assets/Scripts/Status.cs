@@ -8,7 +8,7 @@ public class Status : MonoBehaviour
     //status
     float time,auxTimeIn, auxVelocidade;
     [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_,tempoInvu;
-    bool boolDanoR;
+    bool podeMover;
 
     public float vida
     {
@@ -46,18 +46,24 @@ public class Status : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if(time>=auxTimeIn && boolDanoR)
+        if(time>=auxTimeIn && podeMover)
         {
             velocidade = auxVelocidade;
-            boolDanoR = false;
+            podeMover = false;
         }
     }
     
     public void TomarDano(float danoRecebido)
     {
         vida = vida - danoRecebido;
+        hit();
+    }
+
+    public void hit()
+    {
         velocidade = 0;
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2 (0,0);
         auxTimeIn = time + tempoInvu;
-        boolDanoR = true;
+        podeMover = true;
     }
 }

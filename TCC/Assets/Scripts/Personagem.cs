@@ -56,13 +56,6 @@ public class Personagem : MonoBehaviour
         
     }
 
-    
-
-    public void TomarDano(float danoRecebido)
-    {
-        
-    }
-
     public void Virar()
     {
         transform.localScale = new Vector2(transform.localScale.x*-1,transform.localScale.y);

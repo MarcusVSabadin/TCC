@@ -8,7 +8,6 @@ public class Inimigo : Personagem
     GameObject player;
     float ultimaVelocidade,direcao;
 
-    [SerializeField] float tempoParadoPosDano;
     
     public override void Start()
     {
@@ -20,12 +19,8 @@ public class Inimigo : Personagem
 
     void FixedUpdate()
     {
+        
         Movimentacao();
-
-        if(timeMaster>=timeAposDano)
-        {
-            status.velocidade = auxVelocidade;
-        }
     }
 
     void Movimentacao()
@@ -53,9 +48,7 @@ public class Inimigo : Personagem
         {
             player.GetComponent<Status>().TomarDano(status.dano);
             player.GetComponent<Rigidbody2D>().velocity = new Vector2 (direcao*3,player.GetComponent<Rigidbody2D>().velocity.y);
-            timeAposDano = timeMaster + tempoParadoPosDano;
-            this.status.velocidade = 0;
-
+            status.hit();
         }
     }
 }
