@@ -32,6 +32,8 @@ public class Player : Personagem
         //ataque
         if(Input.GetKeyDown(KeyCode.Z))
             atk();
+
+        barraDeVida.rectTransform.localScale = new Vector3(status.vida/gm.vida,barraDeVida.rectTransform.localScale.y,barraDeVida.rectTransform.localScale.z);
     }
 
     void Movimentacao()
