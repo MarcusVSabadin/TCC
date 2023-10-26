@@ -11,6 +11,7 @@ public class Personagem : MonoBehaviour
     Animator animacao_;
     Transform transform;
     Status status_;
+    GameMaster gm_;
 
     bool podePular,direcaoPersD = true;
     float timeMaster_;
@@ -35,6 +36,10 @@ public class Personagem : MonoBehaviour
         get{return status_;}
 
     }
+    public GameMaster gm
+    {
+        get{return gm_;}
+    }
 
     public float timeMaster
     {
@@ -47,6 +52,7 @@ public class Personagem : MonoBehaviour
         animacao_ = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         status_ = GetComponent<Status>();
+        gm_ = GameObject.FindWithTag("GameController").GetComponent<GameMaster>();
     }
 
     public virtual void Update()

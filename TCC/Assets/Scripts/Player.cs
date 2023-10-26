@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Personagem
 {
     bool utiDirD = true;
+
+    [SerializeField] Image barraDeVida;
 
     //time
     float timeAtk;
@@ -13,6 +16,12 @@ public class Player : Personagem
     [SerializeField] Transform PosAtk;
     [SerializeField] float alcanceAtk, IntervaloAtk;
     [SerializeField] LayerMask LayerInimigos;
+
+    public override void Start()
+    {
+        base.Start();
+        status.vida = gm.vida;
+    }
 
     public override void Update()
     {

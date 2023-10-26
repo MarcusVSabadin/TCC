@@ -51,6 +51,8 @@ public class Status : MonoBehaviour
             velocidade = auxVelocidade;
             podeMover = false;
         }
+
+        
     }
     
     public void TomarDano(float danoRecebido)
