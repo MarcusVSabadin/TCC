@@ -56,6 +56,9 @@ public class Player : Personagem
         {
             Pular();
         }
+
+        if(Input.GetKeyDown(KeyCode.E))
+            gm.UpgradeDano();
     }
 
     void atk()

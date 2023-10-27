@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
-    
+    GameMaster gm;
+
     //status
     float time,auxTimeIn, auxVelocidade;
     [SerializeField] float vida_, dano_, velocidade_,forcaDoPulo_,tempoInvu;
@@ -36,13 +37,14 @@ public class Status : MonoBehaviour
 
     void Start()
     {
+        gm = GameObject.FindWithTag("GameController").GetComponent<GameMaster>();
         auxVelocidade = velocidade;
     }
 
     void Update()
     {
         time = Time.time;
-        if(vida <= 0)
+        if(this.vida <= 0)
         {
             Destroy(gameObject);
         }
@@ -57,7 +59,7 @@ public class Status : MonoBehaviour
     
     public void TomarDano(float danoRecebido)
     {
-        vida = vida - danoRecebido;
+        this.vida -= danoRecebido;
         hit();
     }
 
@@ -67,5 +69,21 @@ public class Status : MonoBehaviour
         this.GetComponent<Rigidbody2D>().velocity = new Vector2 (0,0);
         auxTimeIn = time + tempoInvu;
         podeMover = true;
+    }
+
+    public void UpgradeVida(float aumentoVida)
+    {
+        vida += aumentoVida;
+    }
+
+    public void UpgradeVelocida()
+    {
+        velocidade = gm.velocidade;
+        auxVelocidade = velocidade;
+    }
+
+    public void UpgradeDano()
+    {
+        dano = gm.dano;
     }
 }

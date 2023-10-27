@@ -19,7 +19,6 @@ public class Inimigo : Personagem
 
     void FixedUpdate()
     {
-        
         Movimentacao();
     }
 
