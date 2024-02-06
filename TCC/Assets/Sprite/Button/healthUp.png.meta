@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f9239041a8487ac4a82b04cf8372eda3
+guid: 23f12a827b76be84ebcb0d570c762f85
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: damageUp_0
+      name: healthUp_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e387ccb5a2bfc7498d30e020e217e93
-      internalID: 1802746976
+      spriteID: a30147d1faade4e43a659b6ec4b1593d
+      internalID: 1123348638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: damageUp_1
+      name: healthUp_1
       rect:
         serializedVersion: 2
         x: 0
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e4efda83b8c9684680c17259bc38e82
-      internalID: -1483734459
+      spriteID: 7b6a9ca0ff2dc404aae6ab53173eb454
+      internalID: -1783348793
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      damageUp_0: 1802746976
-      damageUp_1: -1483734459
+      healthUp_0: 1123348638
+      healthUp_1: -1783348793
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
