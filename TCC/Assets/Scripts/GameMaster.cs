@@ -11,6 +11,16 @@ public class GameMaster : MonoBehaviour
 
     int vidaNivel,velocidadeNivel,danoNivel;
 
+    [SerializeField] GameObject stage;
+    Transform StagePosition;
+
+    void Awake()
+    {
+        StagePosition = this.transform;
+        StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
+        Instantiate(stage,StagePosition);
+    }
+
     void Start()
     {
         vidaNivel = 0;
