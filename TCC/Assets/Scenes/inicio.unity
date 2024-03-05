@@ -1778,7 +1778,7 @@ MonoBehaviour:
   - 2
   - 3
   - 4
-  stage: {fileID: 6246243407881229561, guid: 00ec354b05e96744b904e6e7e31c6a4c, type: 3}
+  stage: {fileID: 6246243407881229561, guid: c608ca807b500e2468da28cc53be5e30, type: 3}
 --- !u!4 &1377076577
 Transform:
   m_ObjectHideFlags: 0
