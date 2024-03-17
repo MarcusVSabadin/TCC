@@ -46,6 +46,16 @@ public class Personagem : MonoBehaviour
         get{return timeMaster_;}
     }
 
+    public LayerMask layerChao
+    {
+        get{return Chao;}
+    }
+
+    public bool noChao
+    {
+        get{return colisorChao;}
+    }
+
     public virtual void Start()
     {
         rb_ = GetComponent<Rigidbody2D>();

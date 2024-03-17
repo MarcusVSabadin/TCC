@@ -8,6 +8,10 @@ public class Inimigo : Personagem
     GameObject player;
     float ultimaVelocidade,direcao;
 
+    [SerializeField] Transform DetecBurraco,DetecWall;
+    [SerializeField] LayerMask layerWall;
+    [SerializeField] Vector2 sizeDetecB;
+    bool mudarDirecao;
     
     public override void Start()
     {
@@ -24,21 +28,18 @@ public class Inimigo : Personagem
 
     void Movimentacao()
     {
-        if(player.transform.position.x < transform.position.x)
+        mudarDirecao = (!Physics2D.OverlapBox(DetecBurraco.position,sizeDetecB,0f,base.layerChao) || Physics2D.OverlapBox(DetecWall.position,sizeDetecB,0f,layerWall));
+        if(mudarDirecao && noChao)
         {
-            direcao = -1.0f;
-            Mover(new Vector2 (direcao,0.0f));
+            virando();    
         }
-        else
-        {
-            direcao = 1.0f;
-            Mover(new Vector2 (direcao,0.0f));
-        }
+        Mover(new Vector2 (direcao,0.0f));
+    }
 
-        if(ultimaVelocidade != direcao && (rb.velocity.x >= 0.3f || rb.velocity.x <= -0.3f))
-            Virar();
-
-        ultimaVelocidade = direcao;
+    void virando()
+    {
+        direcao *= -1f;
+        Virar();
     }
 
     void OnTriggerEnter2D(Collider2D Collider)
@@ -48,6 +49,13 @@ public class Inimigo : Personagem
             player.GetComponent<Status>().TomarDano(status.dano);
             player.GetComponent<Rigidbody2D>().velocity = new Vector2 (direcao*3,player.GetComponent<Rigidbody2D>().velocity.y);
             status.hit();
+            virando();
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(DetecBurraco.position, sizeDetecB);
+        Gizmos.DrawWireCube(DetecWall.position, sizeDetecB);
     }
 }
