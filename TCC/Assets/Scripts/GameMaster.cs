@@ -11,14 +11,15 @@ public class GameMaster : MonoBehaviour
 
     int vidaNivel,velocidadeNivel,danoNivel;
 
-    [SerializeField] GameObject stage;
+    [SerializeField] GameObject[] stages;
+    GameObject stageAtual;
     Transform StagePosition;
 
     void Awake()
     {
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
-        Instantiate(stage,StagePosition);
+        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
     }
 
     void Start()
@@ -71,5 +72,11 @@ public class GameMaster : MonoBehaviour
             danoNivel += 1;
             player.status.UpgradeDano();
         }
+    }
+
+    public void changeStage()
+    {
+        Destroy(stageAtual);
+        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
     }
 }

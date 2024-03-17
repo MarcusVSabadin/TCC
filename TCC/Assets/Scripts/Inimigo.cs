@@ -43,7 +43,7 @@ public class Inimigo : Personagem
 
     void OnTriggerEnter2D(Collider2D Collider)
     {
-        if(Collider.gameObject.tag == "Player")
+        if(Collider.gameObject.tag == "DetecInimigos")
         {
             player.GetComponent<Status>().TomarDano(status.dano);
             player.GetComponent<Rigidbody2D>().velocity = new Vector2 (direcao*3,player.GetComponent<Rigidbody2D>().velocity.y);
