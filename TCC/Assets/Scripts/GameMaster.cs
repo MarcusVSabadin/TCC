@@ -12,14 +12,22 @@ public class GameMaster : MonoBehaviour
     int vidaNivel,velocidadeNivel,danoNivel;
 
     [SerializeField] GameObject[] stages;
+    StageStatus[] stagesStatus;
     GameObject stageAtual;
     Transform StagePosition;
 
     void Awake()
     {
+        
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
         stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
+        stagesStatus = new StageStatus[stages.Length];
+        for (int s=0;s < stages.Length; s++){
+            Debug.Log('a');
+            stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
+            
+        }
     }
 
     void Start()
