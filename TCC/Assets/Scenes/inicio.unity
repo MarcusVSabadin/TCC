@@ -1787,6 +1787,7 @@ MonoBehaviour:
   - {fileID: 6246243407881229561, guid: 50478c18e30b0ef40ab4c93df78eddcf, type: 3}
   - {fileID: 6246243407881229561, guid: f5502bb3f99996544bffcedf72ccebfe, type: 3}
   - {fileID: 6246243407881229561, guid: 7068cce9e22f9df4aa84a1883daba475, type: 3}
+  sceneGameOver: GameOver
 --- !u!4 &1377076577
 Transform:
   m_ObjectHideFlags: 0
