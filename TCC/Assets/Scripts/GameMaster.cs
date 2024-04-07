@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameMaster : MonoBehaviour
     GameObject stageAtual;
     Transform StagePosition;
 
+    [SerializeField] string sceneGameOver;
+
     void Awake()
     {
         
@@ -24,7 +27,6 @@ public class GameMaster : MonoBehaviour
         stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
         stagesStatus = new StageStatus[stages.Length];
         for (int s=0;s < stages.Length; s++){
-            Debug.Log('a');
             stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
             
         }
@@ -37,6 +39,15 @@ public class GameMaster : MonoBehaviour
         danoNivel = 0;
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
+    }
+
+    void Update()
+    {
+        if (GameObject.FindWithTag("Player") == null)
+        {
+            Debug.Log("teset");
+            SceneManager.LoadScene(sceneGameOver);
+        }
     }
 
     public float vida
