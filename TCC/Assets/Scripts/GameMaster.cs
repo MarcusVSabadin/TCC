@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameMaster : MonoBehaviour
 {
     Player player;
+    string id;
 
 
     [SerializeField] float[] vida_,velocidade_,dano_;
@@ -28,7 +29,15 @@ public class GameMaster : MonoBehaviour
         stagesStatus = new StageStatus[stages.Length];
         for (int s=0;s < stages.Length; s++){
             stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
-            
+            id = System.Convert.ToString (s, 2);
+            while (id.Length <=2)
+            {
+                id = string.Concat("0", id);
+            }
+
+            stagesStatus[s].identificador =  new Vector3((float)char.GetNumericValue(id[0]),(float)char.GetNumericValue(id[1]),(float)char.GetNumericValue(id[2]));
+            Debug.Log(stagesStatus[s].identificador);
+
         }
     }
 
