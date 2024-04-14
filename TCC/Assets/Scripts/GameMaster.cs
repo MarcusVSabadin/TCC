@@ -20,12 +20,14 @@ public class GameMaster : MonoBehaviour
 
     [SerializeField] string sceneGameOver;
 
+    [SerializeField] GameObject telaUpgrades;
+
     void Awake()
     {
         
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
-        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
+        stageAtual = Instantiate(stages[4],StagePosition); //Random.Range(0,stages.Length)
         stagesStatus = new StageStatus[stages.Length];
         for (int s=0;s < stages.Length; s++){
             stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
@@ -106,5 +108,10 @@ public class GameMaster : MonoBehaviour
     {
         Destroy(stageAtual);
         stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
+    }
+
+    public GameObject UpgradeScene()
+    {
+        return telaUpgrades;
     }
 }

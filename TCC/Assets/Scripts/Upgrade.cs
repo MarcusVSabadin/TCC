@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Upgrade : MonoBehaviour
 {
-    [SerializeField] GameObject telaUpgrades, upgrade;
     GameMaster gm;
 
     void Start()
@@ -15,31 +14,33 @@ public class Upgrade : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D Collider)
     {
-        telaUpgrades.SetActive(true);
+        gm.UpgradeScene().SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void UpgradeVida(GameObject upgrade)
+    public void UpgradeVida()
     {
         gm.UpgradeVida();
         Time.timeScale = 1f;
-        telaUpgrades.SetActive(false);
-        Destroy(upgrade);
+        Debug.Log('1');
+        gm.UpgradeScene().SetActive(false);
+        Debug.Log('2');
+        Destroy(GameObject.FindWithTag("Upgrade"));
     }
 
-    public void UpgradeDano(GameObject upgrade)
+    public void UpgradeDano()
     {
         gm.UpgradeDano();
         Time.timeScale = 1f;
-        telaUpgrades.SetActive(false);
-        Destroy(upgrade);
+        gm.UpgradeScene().SetActive(false);
+        Destroy(GameObject.FindWithTag("Upgrade"));
     }
 
-    public void UpgradeVelocida(GameObject upgrade)
+    public void UpgradeVelocida()
     {
         gm.UpgradeVelocida();
         Time.timeScale = 1f;
-        telaUpgrades.SetActive(false);
-        Destroy(upgrade);
+        gm.UpgradeScene().SetActive(false);
+        Destroy(GameObject.FindWithTag("Upgrade"));
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Inimigo
   - DetecInimigos
   - wall
+  - Upgrade
   layers:
   - Default
   - TransparentFX
