@@ -27,7 +27,7 @@ public class GameMaster : MonoBehaviour
         
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
-        stageAtual = Instantiate(stages[4],StagePosition); //Random.Range(0,stages.Length)
+        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
         stagesStatus = new StageStatus[stages.Length];
         for (int s=0;s < stages.Length; s++){
             stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
