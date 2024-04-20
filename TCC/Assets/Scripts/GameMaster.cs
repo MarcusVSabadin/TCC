@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameMaster : MonoBehaviour
 {
     Player player;
-    string id;
+    IA IAmaps;
 
 
     [SerializeField] float[] vida_,velocidade_,dano_;
@@ -14,7 +14,6 @@ public class GameMaster : MonoBehaviour
     int vidaNivel,velocidadeNivel,danoNivel;
 
     [SerializeField] GameObject[] stages;
-    StageStatus[] stagesStatus;
     GameObject stageAtual;
     Transform StagePosition;
 
@@ -24,23 +23,10 @@ public class GameMaster : MonoBehaviour
 
     void Awake()
     {
-        
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
         stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
-        stagesStatus = new StageStatus[stages.Length];
-        for (int s=0;s < stages.Length; s++){
-            stagesStatus[s] = stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
-            id = System.Convert.ToString (s, 2);
-            while (id.Length <=2)
-            {
-                id = string.Concat("0", id);
-            }
-
-            stagesStatus[s].identificador =  new Vector3((float)char.GetNumericValue(id[0]),(float)char.GetNumericValue(id[1]),(float)char.GetNumericValue(id[2]));
-            Debug.Log(stagesStatus[s].identificador);
-
-        }
+        IAmaps = GetComponent<IA>();
     }
 
     void Start()
@@ -49,6 +35,8 @@ public class GameMaster : MonoBehaviour
         velocidadeNivel = 0;
         danoNivel = 0;
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        IAmaps.createMap(stages);
 
     }
 
