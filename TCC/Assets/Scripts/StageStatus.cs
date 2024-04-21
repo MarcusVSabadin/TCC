@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StageStatus : MonoBehaviour
 {
-    Vector3 identificador_;
+    int[] identificador_;
     [SerializeField] float difcult_;
     
 
@@ -13,9 +13,13 @@ public class StageStatus : MonoBehaviour
         get{return difcult_;}
     }
 
-    public Vector3 identificador
+    public int[] identificador
     {
-        set{identificador_ = value;}
+        set
+        {   
+            identificador_ = new int[value.Length];
+            identificador_ = value;
+        }
         get{return identificador_;}
     }
 }
