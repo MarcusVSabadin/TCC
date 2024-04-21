@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField] GameObject[] stages;
     GameObject stageAtual;
     Transform StagePosition;
+    GameObject[] Map;
 
     [SerializeField] string sceneGameOver;
 
@@ -25,8 +26,11 @@ public class GameMaster : MonoBehaviour
     {
         StagePosition = this.transform;
         StagePosition.position = new Vector3 (0.0f,0.0f,0.0f);
-        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
         IAmaps = GetComponent<IA>();
+        Map = IAmaps.createMap(stages);
+
+        stageAtual = Instantiate(Map[0],StagePosition);
+        
     }
 
     void Start()
@@ -36,8 +40,7 @@ public class GameMaster : MonoBehaviour
         danoNivel = 0;
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        IAmaps.createMap(stages);
-
+        
     }
 
     void Update()

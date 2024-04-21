@@ -19,12 +19,12 @@ public class IA : MonoBehaviour
         
         populacao = createPop(stages.Length);
 
-        ConvertMap(stages,populacao[0]);
+        Map = ConvertMap(stages,populacao[0]);
 
     
 
 
-        return stages;
+        return Map;
     }
 
     StageStatus[] setIdToStages(GameObject[] L_stages)
@@ -82,7 +82,7 @@ public class IA : MonoBehaviour
 
     GameObject[] ConvertMap(GameObject[] L_stages,int[] L_Chromosome)
     { 
-        Map = new GameObject[stageNumberMap];
+        GameObject[] L_Map = new GameObject[stageNumberMap];
         int nextStagePos = 0;
         int[] aux = new int[tamId];
         for(int gene = 0; gene <= tamId*(stageNumberMap-1) ; gene += tamId)
@@ -97,12 +97,12 @@ public class IA : MonoBehaviour
             {
                 if (aux.SequenceEqual(stagesInfo[s].identificador))
                 {
-                    Map[nextStagePos] = L_stages[s];
+                    L_Map[nextStagePos] = L_stages[s];
                     nextStagePos ++;
                 }
             }
         }
-        return Map;
+        return L_Map;
     }
 
 
