@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StageStatus : MonoBehaviour
 {
-    int[] identificador_;
+    float[] identificador_;
     [SerializeField] float difcult_;
     
 
@@ -13,11 +13,11 @@ public class StageStatus : MonoBehaviour
         get{return difcult_;}
     }
 
-    public int[] identificador
+    public float[] identificador
     {
         set
         {   
-            identificador_ = new int[value.Length];
+            identificador_ = new float[value.Length];
             identificador_ = value;
         }
         get{return identificador_;}
