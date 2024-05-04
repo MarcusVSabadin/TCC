@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEditor;
 
 public class IA : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class IA : MonoBehaviour
     //fitness
     float Fit(GameObject[] F_stages,float[] F_Chromosome)
     {
+        int upgrades = 0;
         float difcultMap = 0;
         float[] aux = new float[tamId];
         for(int gene = 0; gene <= tamId*(stageNumberMap-1) ; gene += tamId)
@@ -101,15 +103,21 @@ public class IA : MonoBehaviour
             {
                 if (aux.SequenceEqual(stagesInfo[s].identificador))
                 {
-                    difcultMap += stagesInfo[s].difcult;
-
+                    if(!aux.Contains(1))
+                    {
+                        upgrades ++;
+                    }
+                    else
+                    {
+                        difcultMap += stagesInfo[s].difcult -(upgrades*10);
+                    }
                 }
             }
 
 
         }
 
-        return difcultMap/stageNumberMap;
+        return difcultMap/(stageNumberMap-upgrades);
     }
 
     void CalcFitness(GameObject[] CF_stages)
