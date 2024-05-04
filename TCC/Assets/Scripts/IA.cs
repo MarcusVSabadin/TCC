@@ -8,10 +8,9 @@ public class IA : MonoBehaviour
     GameObject[] Map;
     StageStatus[] stagesInfo;
 
-    int[][] populacao;
-    float[][][] table;
+    float[][][] populacao; //float[cromosomo][atributo desejado][posisao do atributo (usado para o cromosomo, demais permanecera 0)]
     int tamId, tamCrom;
-    [SerializeField] int stageNumberMap;
+    [SerializeField] int stageNumberMap, tamPop;
 
 
     public GameObject[] createMap(GameObject[] stages)
@@ -19,11 +18,11 @@ public class IA : MonoBehaviour
         stagesInfo = new StageStatus[stages.Length];
         stagesInfo = setIdToStages(stages);
         
-        populacao = createPop(stages.Length);
+        populacao = createPop(tamPop);
 
-        table = CalcFitness(stages);
+        CalcFitness(stages);
 
-        Map = ConvertMap(stages,populacao[0]);
+        Map = ConvertMap(stages,populacao[0][0]);
 
     
 
@@ -58,31 +57,32 @@ public class IA : MonoBehaviour
         return stagesInfo;
     }
 
-    int[][] createPop(int stageNumber)
+    float[][][] createPop(int stageNumber)
     {
-        int[][] pop;
-        pop = new int[stageNumber][];
-        for (int Chromosome = 0; Chromosome < stageNumber; Chromosome++)
-        {
-            pop[Chromosome] = new int[tamCrom];
 
-            for(int gene = 0; gene < tamCrom; gene ++)
+        float[][][] L_table;
+        L_table = new float[stageNumber][][];
+        for(int ind = 0;ind < L_table.Length; ind++)
+        {
+            L_table[ind] = new float[4][];
+            L_table[ind][0] = new float[tamCrom];
+            
+
+            //setando array
+            for(int t = 1;t < 4;t++)
             {
-                pop[Chromosome][gene] = Random.Range(0,2);
+                L_table[ind][t] = new float[1];
+            }
+        
+            //adicionando populacao a tabela
+            for (int p = 0; p < tamCrom; p++)
+            {
+                L_table[ind][0][p] = Random.Range(0,2);
             }
         }
 
-        //testes
-        for (int Chromosome = 0; Chromosome < stageNumber; Chromosome++)
-        {
-            for(int gene = 0; gene < tamCrom; gene ++)
-            {    
-                Debug.Log(pop[Chromosome][gene]);
-            }
-            Debug.Log("-----------------------------------");
-        }
 
-        return pop;
+        return L_table;
     }
 
     //fitness
@@ -112,53 +112,34 @@ public class IA : MonoBehaviour
         return difcultMap/stageNumberMap;
     }
 
-    float[][][] CalcFitness(GameObject[] CF_stages)
+    void CalcFitness(GameObject[] CF_stages)
     {
-        float[][][] L_table;
-        L_table = new float[populacao.Length][][];
-        for(int ind = 0;ind < L_table.Length; ind++)
+        for(int ind = 0;ind < populacao.Length; ind++)
         {
-            L_table[ind] = new float[4][];
-            L_table[ind][0] = new float[tamCrom];
-            
-
-            //setando array
-            for(int t = 1;t < 4;t++)
-            {
-                L_table[ind][t] = new float[1];
-            }
-
-            //adicionando populacao a tabela
-            for (int p = 0; p < tamCrom; p++)
-            {
-                L_table[ind][0][p] = populacao[ind][p];
-            }
-
-            L_table[ind][1][0] = Fit(CF_stages,L_table[ind][0]);
+            populacao[ind][1][0] = Fit(CF_stages,populacao[ind][0]);
         }
 
         //teste debug
-        for(int i = 0; i < L_table.Length; i++)
+        for(int i = 0; i < populacao.Length; i++)
         {
             string aux = "";
             aux += "individuo: " + i;
-            for(int j = 0; j < L_table[i].Length; j++)
+            for(int j = 0; j < populacao[i].Length; j++)
             {
                 aux += ", coluna: " + j + " = ";
                 
-                for(int k = 0; k < L_table[i][j].Length; k++)
+                for(int k = 0; k < populacao[i][j].Length; k++)
                 {
-                    aux += L_table[i][j][k];
+                    aux += populacao[i][j][k];
                 }
             }
             Debug.Log(aux);
         }
-        return L_table;
     }
 
 
 
-    GameObject[] ConvertMap(GameObject[] L_stages,int[] L_Chromosome)
+    GameObject[] ConvertMap(GameObject[] L_stages,float[] L_Chromosome)
     { 
         GameObject[] L_Map = new GameObject[stageNumberMap];
         int nextStagePos = 0;
