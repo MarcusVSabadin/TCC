@@ -25,6 +25,8 @@ public class IA : MonoBehaviour
 
         Map = ConvertMap(stages,populacao[0][0]);
 
+        ConvertToDecimal(populacao[0][0]);
+
     
 
 
@@ -47,7 +49,7 @@ public class IA : MonoBehaviour
             }
             float[] idV = new float[tamId];
             
-            for(int i = 0; i < tamId ; i++)
+            for(int i = tamId - 1; i >= 0  ; i--)
             {
                 idV[i] = (float)char.GetNumericValue(id[i]);
             }
@@ -103,7 +105,7 @@ public class IA : MonoBehaviour
             {
                 if (aux.SequenceEqual(stagesInfo[s].identificador))
                 {
-                    if(!aux.Contains(1))
+                    if(stagesInfo[s].isUpgrade)
                     {
                         upgrades ++;
                     }
@@ -112,6 +114,11 @@ public class IA : MonoBehaviour
                         difcultMap += stagesInfo[s].difcult -(upgrades*10);
                     }
                 }
+                else
+                {
+                   
+                }
+                
             }
 
 
@@ -170,6 +177,18 @@ public class IA : MonoBehaviour
             }
         }
         return L_Map;
+    }
+
+    float ConvertToDecimal(float[] indv)
+    {
+        float soma = 0;
+        for(int i = indv.Length -1 ; i >= 0; i--)
+        {
+            soma += (Mathf.Pow(2,i))*indv[i];
+            
+        }
+        Debug.Log("soma: "+ soma);
+        return soma;
     }
 
 

@@ -1246,3 +1246,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difcult_: 0
+  isUpgrade_: 1
