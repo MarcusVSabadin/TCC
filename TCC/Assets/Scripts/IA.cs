@@ -25,8 +25,6 @@ public class IA : MonoBehaviour
 
         Map = ConvertMap(stages,populacao[0][0]);
 
-        ConvertToDecimal(populacao[0][0]);
-
     
 
 
@@ -35,25 +33,13 @@ public class IA : MonoBehaviour
 
     StageStatus[] setIdToStages(GameObject[] SIS_stages)
     {
-        string id;
         tamId = System.Convert.ToString(SIS_stages.Length, 2).Length;
         tamCrom = tamId*stageNumberMap;
 
 
         for (int s=0;s < SIS_stages.Length; s++){
             stagesInfo[s] = SIS_stages[s].transform.GetChild(0).gameObject.GetComponent<StageStatus>();
-            id = System.Convert.ToString (s, 2);
-            while (id.Length < tamId)
-            {
-                id = string.Concat("0", id);
-            }
-            float[] idV = new float[tamId];
-            
-            for(int i = tamId - 1; i >= 0  ; i--)
-            {
-                idV[i] = (float)char.GetNumericValue(id[i]);
-            }
-            stagesInfo[s].identificador = idV;
+            stagesInfo[s].identificador = ConvertToBinary(s);
 
         }
         
@@ -103,6 +89,13 @@ public class IA : MonoBehaviour
 
             for (int s=0;s < F_stages.Length; s++)
             {
+                if (ConvertToDecimal(aux)>=F_stages.Length)
+                {
+                    float D = ConvertToDecimal(aux);
+                    D -= F_stages.Length;
+                    aux = ConvertToBinary((int)D);
+                }
+
                 if (aux.SequenceEqual(stagesInfo[s].identificador))
                 {
                     if(stagesInfo[s].isUpgrade)
@@ -113,10 +106,6 @@ public class IA : MonoBehaviour
                     {
                         difcultMap += stagesInfo[s].difcult -(upgrades*10);
                     }
-                }
-                else
-                {
-                   
                 }
                 
             }
@@ -169,6 +158,13 @@ public class IA : MonoBehaviour
 
             for (int s=0;s < L_stages.Length; s++)
             {
+                if (ConvertToDecimal(aux)>=L_stages.Length)
+                {
+                    float D = ConvertToDecimal(aux);
+                    D -= L_stages.Length;
+                    aux = ConvertToBinary((int)D);
+                }
+
                 if (aux.SequenceEqual(stagesInfo[s].identificador))
                 {
                     L_Map[nextStagePos] = L_stages[s];
@@ -187,8 +183,23 @@ public class IA : MonoBehaviour
             soma += (Mathf.Pow(2,i))*indv[i];
             
         }
-        Debug.Log("soma: "+ soma);
         return soma;
+    }
+
+    float[] ConvertToBinary(int Dec)
+    {
+        string id = System.Convert.ToString (Dec, 2);
+        while (id.Length < tamId)
+        {
+            id = string.Concat("0", id);
+        }
+        float[] idV = new float[tamId];
+        
+        for(int i = tamId - 1; i >= 0  ; i--)
+        {
+            idV[i] = (float)char.GetNumericValue(id[i]);
+        }
+        return idV;
     }
 
 
