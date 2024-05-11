@@ -12,6 +12,7 @@ public class IA : MonoBehaviour
     float[][][] populacao; //float[cromosomo][atributo desejado][posisao do atributo (usado para o cromosomo, demais permanecera 0)]
     int tamId, tamCrom;
     [SerializeField] int stageNumberMap, tamPop;
+    [SerializeField] float desiredDificult;
 
 
     public GameObject[] createMap(GameObject[] stages)
@@ -22,6 +23,10 @@ public class IA : MonoBehaviour
         populacao = createPop(tamPop);
 
         CalcFitness(stages);
+
+        completongPop();
+
+        showPop();
 
         Map = ConvertMap(stages,populacao[0][0]);
 
@@ -78,7 +83,7 @@ public class IA : MonoBehaviour
     float Fit(GameObject[] F_stages,float[] F_Chromosome)
     {
         int upgrades = 0;
-        float difcultMap = 0;
+        float dificultMap = 0;
         float[] aux = new float[tamId];
         for(int gene = 0; gene <= tamId*(stageNumberMap-1) ; gene += tamId)
         {
@@ -104,16 +109,14 @@ public class IA : MonoBehaviour
                     }
                     else
                     {
-                        difcultMap += stagesInfo[s].difcult -(upgrades*10);
+                        dificultMap += stagesInfo[s].difcult -(upgrades*20);
                     }
                 }
                 
             }
-
-
         }
 
-        return difcultMap/(stageNumberMap-upgrades);
+        return desiredDificult - Mathf.Abs(desiredDificult - (dificultMap/(stageNumberMap-upgrades)));
     }
 
     void CalcFitness(GameObject[] CF_stages)
@@ -123,22 +126,41 @@ public class IA : MonoBehaviour
             populacao[ind][1][0] = Fit(CF_stages,populacao[ind][0]);
         }
 
-        //teste debug
+    }
+
+    void completongPop()
+    {
+        //ordenando
+        float soma = 0;
         for(int i = 0; i < populacao.Length; i++)
         {
-            string aux = "";
-            aux += "individuo: " + i;
-            for(int j = 0; j < populacao[i].Length; j++)
+            int iMax = argMax(i);
+            if (iMax != i)
             {
-                aux += ", coluna: " + j + " = ";
-                
-                for(int k = 0; k < populacao[i][j].Length; k++)
-                {
-                    aux += populacao[i][j][k];
-                }
+                float[][] aux = populacao[i];
+                populacao[i] = populacao[iMax];
+                populacao[iMax] = aux;
             }
-            Debug.Log(aux);
+
+            soma += populacao[i][1][0]; 
         }
+
+        // gerar adaptabilidade relativa
+        for(int i = 0; i < populacao.Length; i++)
+        {
+            populacao[i][2][0] = populacao[i][1][0]/soma;
+        }
+
+        //calcular a adaptabilidade relatica acumulada
+
+        populacao[populacao.Length - 1][3][0] = populacao[populacao.Length - 1][2][0];
+
+        for(int i = populacao.Length - 2; i >= 0; i--)
+        {
+            populacao[i][3][0] = populacao[i][2][0] + populacao[i+1][3][0];
+        }
+
+
     }
 
 
@@ -200,6 +222,42 @@ public class IA : MonoBehaviour
             idV[i] = (float)char.GetNumericValue(id[i]);
         }
         return idV;
+    }
+
+    int argMax(int inicio)
+    {
+        int indice = 0;
+        float max = -9999;
+
+        for(int i = inicio;i < populacao.Length; i++)
+        {
+            if(populacao[i][1][0] > max)
+            {
+                max = populacao[i][1][0];
+                indice = i;
+            }
+        }
+        return indice;
+    }
+
+    void showPop()
+    {
+        //teste debug
+        for(int i = 0; i < populacao.Length; i++)
+        {
+            string aux = "";
+            aux += "individuo: " + i;
+            for(int j = 0; j < populacao[i].Length; j++)
+            {
+                aux += ", coluna: " + j + " = ";
+                
+                for(int k = 0; k < populacao[i][j].Length; k++)
+                {
+                    aux += populacao[i][j][k];
+                }
+            }
+            Debug.Log(aux);
+        }
     }
 
 
