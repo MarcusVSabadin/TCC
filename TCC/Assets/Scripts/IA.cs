@@ -22,10 +22,17 @@ public class IA : MonoBehaviour
         
         populacao = createPop(tamPop);
 
-        CalcFitness(stages);
+        completingPop(stages);
 
-        completongPop();
+        showPop();
 
+        for(int i = 0; i < 3; i++)
+        {
+            newPop();
+
+            completingPop(stages);
+        }
+        
         showPop();
 
         Map = ConvertMap(stages,populacao[0][0]);
@@ -109,14 +116,24 @@ public class IA : MonoBehaviour
                     }
                     else
                     {
-                        dificultMap += stagesInfo[s].difcult -(upgrades*20);
+                        dificultMap += stagesInfo[s].difcult -(upgrades*200);
                     }
                 }
                 
             }
+            
         }
 
-        return desiredDificult - Mathf.Abs(desiredDificult - (dificultMap/(stageNumberMap-upgrades)));
+        //evitando fitness negativos
+        
+        dificultMap = dificultMap/(stageNumberMap-upgrades);
+
+        if(dificultMap >= 2f*desiredDificult || dificultMap <= 0)
+        {
+            dificultMap = 1f;
+        }
+
+        return desiredDificult - Mathf.Abs(desiredDificult - dificultMap);
     }
 
     void CalcFitness(GameObject[] CF_stages)
@@ -128,8 +145,9 @@ public class IA : MonoBehaviour
 
     }
 
-    void completongPop()
+    void completingPop(GameObject[] CP_stages)
     {
+        CalcFitness(CP_stages);
         //ordenando
         float soma = 0;
         for(int i = 0; i < populacao.Length; i++)
@@ -163,6 +181,65 @@ public class IA : MonoBehaviour
 
     }
 
+    float[][][] crossOver(float[][][] newPopC,float[][] indV1,float[][] indV2,int line)
+    {
+        int crossOverPoint = Random.Range(0,stageNumberMap)*tamId;
+
+        float[] crom1 = indV1[0];
+        float[] crom2 = indV2[0];
+
+        for(int i = 0;i < tamCrom; i++)
+        {
+            if(crossOverPoint <= i)
+            {
+                newPopC[line][0][i] = crom1[i];
+                newPopC[line - 1][0][i] = crom2[i];
+            }
+            else
+            {
+                newPopC[line][0][i] = crom2[i];
+                newPopC[line - 1][0][i] = crom1[i];
+            }
+        }
+
+        return newPopC;
+    }
+
+    float[][] selectProgenitor()
+    {
+        float roulette = Random.Range(0f,1f);
+
+        for(int i = populacao.Length - 1; i >= 0; i--)
+        {
+            if(roulette <= populacao[i][3][0])
+            {
+                return populacao[i];
+            }
+        }
+
+        return populacao[0];
+    }
+
+    void newPop()
+    {
+        
+        float[][][] newPop = populacao;
+        float[][] ind1;
+        float[][] ind2;
+
+        
+
+        for(int i = populacao.Length - 1;i>0;i-=2)
+        {
+            
+            ind1 = selectProgenitor();
+            ind2 = selectProgenitor();
+            newPop = crossOver(newPop,ind1,ind2,i);
+        }
+
+        populacao = newPop;
+
+    }
 
 
     GameObject[] ConvertMap(GameObject[] L_stages,float[] L_Chromosome)
@@ -197,12 +274,12 @@ public class IA : MonoBehaviour
         return L_Map;
     }
 
-    float ConvertToDecimal(float[] indv)
+    float ConvertToDecimal(float[] binary)
     {
         float soma = 0;
-        for(int i = indv.Length -1 ; i >= 0; i--)
+        for(int i = binary.Length -1 ; i >= 0; i--)
         {
-            soma += (Mathf.Pow(2,i))*indv[i];
+            soma += (Mathf.Pow(2,i))*binary[i];
             
         }
         return soma;
