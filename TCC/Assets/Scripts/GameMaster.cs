@@ -17,6 +17,7 @@ public class GameMaster : MonoBehaviour
     GameObject stageAtual;
     Transform StagePosition;
     GameObject[] Map;
+    int mapStagesNumber;
 
     [SerializeField] string sceneGameOver;
 
@@ -29,7 +30,9 @@ public class GameMaster : MonoBehaviour
         IAmaps = GetComponent<IA>();
         Map = IAmaps.createMap(stages);
 
-        stageAtual = Instantiate(Map[0],StagePosition);
+        mapStagesNumber = 0;
+        stageAtual = Instantiate(Map[mapStagesNumber],StagePosition);
+        mapStagesNumber ++;
         
     }
 
@@ -98,7 +101,8 @@ public class GameMaster : MonoBehaviour
     public void changeStage()
     {
         Destroy(stageAtual);
-        stageAtual = Instantiate(stages[Random.Range(0,stages.Length)],StagePosition);
+        stageAtual = Instantiate(Map[mapStagesNumber],StagePosition);
+        mapStagesNumber ++;
     }
 
     public GameObject UpgradeScene()

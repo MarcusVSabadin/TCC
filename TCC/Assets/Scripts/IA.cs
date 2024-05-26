@@ -11,7 +11,7 @@ public class IA : MonoBehaviour
 
     float[][][] populacao; //float[cromosomo][atributo desejado][posisao do atributo (usado para o cromosomo, demais permanecera 0)]
     int tamId, tamCrom;
-    [SerializeField] int stageNumberMap, tamPop;
+    [SerializeField] int stageNumberMap, tamPop, mutationProbability;
     [SerializeField] float desiredDificult;
 
 
@@ -237,8 +237,31 @@ public class IA : MonoBehaviour
             newPop = crossOver(newPop,ind1,ind2,i);
         }
 
+        newPop = mutation(newPop);
+
         populacao = newPop;
 
+    }
+
+    float[][][] mutation(float[][][] newPopM)
+    {
+        for(int i = 0;i < newPopM.Length; i++)
+        {
+            if(Random.Range(0,101)<=mutationProbability)
+            {
+                int posMut = Random.Range(0,tamCrom);
+                if(newPopM[i][0][posMut] == 1)
+                {
+                    newPopM[i][0][posMut] = 0;
+                }
+                else
+                {
+                    newPopM[i][0][posMut] = 1;
+                }
+            }
+        }
+
+        return newPopM;
     }
 
 
