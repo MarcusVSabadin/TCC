@@ -2199,8 +2199,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageNumberMap: 20
-  tamPop: 25
+  tamPop: 10
   mutationProbability: 10
+  ElitismCount: 2
   desiredDificult: 500
 --- !u!1 &1980597279
 GameObject:

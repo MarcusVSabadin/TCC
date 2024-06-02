@@ -11,7 +11,7 @@ public class IA : MonoBehaviour
 
     float[][][] populacao; //float[cromosomo][atributo desejado][posisao do atributo (usado para o cromosomo, demais permanecera 0)]
     int tamId, tamCrom;
-    [SerializeField] int stageNumberMap, tamPop, mutationProbability;
+    [SerializeField] int stageNumberMap, tamPop, mutationProbability,ElitismCount;
     [SerializeField] float desiredDificult;
 
 
@@ -28,12 +28,13 @@ public class IA : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            newPop();
+            newPop(stages);
+            
 
-            completingPop(stages);
+            
         }
-        
         showPop();
+        
 
         Map = ConvertMap(stages,populacao[0][0]);
 
@@ -201,7 +202,7 @@ public class IA : MonoBehaviour
                 newPopC[line - 1][0][i] = crom1[i];
             }
         }
-
+        
         return newPopC;
     }
 
@@ -220,16 +221,24 @@ public class IA : MonoBehaviour
         return populacao[0];
     }
 
-    void newPop()
+    void newPop(GameObject[] NPStages)
     {
         
         float[][][] newPop = populacao;
         float[][] ind1;
         float[][] ind2;
 
+        //elitismo selcao
+        for(int i = 0;i<ElitismCount;i++)
+        {
+            newPop[i] = populacao[i];
+        }
+
         
 
-        for(int i = populacao.Length - 1;i>0;i-=2)
+        
+
+        for(int i = populacao.Length-1;i>ElitismCount;i-=2)
         {
             
             ind1 = selectProgenitor();
@@ -240,12 +249,15 @@ public class IA : MonoBehaviour
         newPop = mutation(newPop);
 
         populacao = newPop;
+        
+
+        completingPop(NPStages);
 
     }
 
     float[][][] mutation(float[][][] newPopM)
     {
-        for(int i = 0;i < newPopM.Length; i++)
+        for(int i = ElitismCount;i < newPopM.Length; i++)
         {
             if(Random.Range(0,101)<=mutationProbability)
             {
@@ -263,6 +275,8 @@ public class IA : MonoBehaviour
 
         return newPopM;
     }
+
+
 
 
     GameObject[] ConvertMap(GameObject[] L_stages,float[] L_Chromosome)
@@ -359,6 +373,5 @@ public class IA : MonoBehaviour
             Debug.Log(aux);
         }
     }
-
 
 }
