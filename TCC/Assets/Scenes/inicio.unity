@@ -2199,7 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageNumberMap: 20
-  tamPop: 10
+  tamPop: 20
   mutationProbability: 10
   ElitismCount: 2
   desiredDificult: 500
