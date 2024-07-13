@@ -26,13 +26,16 @@ public class IA : MonoBehaviour
 
         showPop();
 
-        for(int i = 0; i < 3; i++)
+        int geracao = 1;
+
+        while(populacao[0][1][0]!=500f)
         {
             newPop(stages);
             
-
+            geracao ++;
             
         }
+        Debug.Log(geracao);
         showPop();
         
 
